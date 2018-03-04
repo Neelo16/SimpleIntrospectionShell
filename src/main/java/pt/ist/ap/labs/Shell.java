@@ -11,9 +11,11 @@ public class Shell {
         BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
         System.out.println("Welcome to the Simple Introspection Shell!");
 
-        while ((command = in.readLine()) != null) {
+        while (true) {
             System.out.print("Command:> ");
             System.out.flush();
+            if ((command = in.readLine()) == null)
+                break;
             String[] splitCommand = command.split(" ");
             String[] arguments = Arrays.copyOfRange(splitCommand, 1, splitCommand.length);
         }
