@@ -14,4 +14,8 @@ public class ObjectHandler {
     void set(String name) {
         savedObjects.put(name, lastResult);
     }
+
+    public Object getLastResult() {
+        return lastResult;
+    }
 }
