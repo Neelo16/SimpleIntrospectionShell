@@ -1,0 +1,32 @@
+plugins {
+    id 'org.jetbrains.intellij' version '0.2.18'
+}
+
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'application'
+group 'pt.ist.ap.labs'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+
+sourceCompatibility = 1.9
+
+mainClassName = 'pt.ist.ap.labs.Shell'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+}
+
+intellij {
+    version '2017.3.4'
+}
+
+run {
+    standardInput = System.in
+}
+
