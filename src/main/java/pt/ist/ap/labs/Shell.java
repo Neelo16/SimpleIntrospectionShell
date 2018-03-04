@@ -7,17 +7,21 @@ import java.util.Arrays;
 
 public class Shell {
     public static void main(String[] args) throws IOException {
-        String command;
+        String line;
+        CommandFactory factory = new CommandFactory();
         BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
         System.out.println("Welcome to the Simple Introspection Shell!");
 
         while (true) {
             System.out.print("Command:> ");
             System.out.flush();
-            if ((command = in.readLine()) == null)
+            if ((line = in.readLine()) == null)
                 break;
-            String[] splitCommand = command.split(" ");
-            String[] arguments = Arrays.copyOfRange(splitCommand, 1, splitCommand.length);
+            String[] arguments = line.split(" ");
+            String commandName = arguments[0];
+            arguments = Arrays.copyOfRange(arguments, 1, arguments.length);
+            Command command = factory.getCommand(commandName, arguments);
+            command.execute();
         }
     }
 }
