@@ -9,7 +9,7 @@ public class CommandFactory {
     @SuppressWarnings("unchecked")
     public Command getCommand(String commandName, String[] arguments) {
         try {
-            Class commandClass = Class.forName("pt.ist.ap.labs." + commandName + "Command");
+            Class commandClass = Class.forName(getClass().getPackageName() + "." + commandName + "Command");
             return (Command) commandClass.getDeclaredConstructor(handler.getClass(), String[].class)
                     .newInstance(new Object[] {handler, arguments});
         } catch (ClassNotFoundException e) {
