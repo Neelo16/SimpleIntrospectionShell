@@ -15,6 +15,10 @@ public class ObjectHandler {
         savedObjects.put(name, lastResult);
     }
 
+    Object get(String name) {
+        return savedObjects.get(name);
+    }
+
     public Object getLastResult() {
         return lastResult;
     }
