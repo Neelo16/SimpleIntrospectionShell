@@ -3,8 +3,9 @@ package pt.ist.ap.labs;
 import java.util.HashMap;
 
 public class ObjectHandler {
+
     private Object lastResult;
-    private HashMap<String,Object> savedObjects;
+    private HashMap<String,Object> savedObjects = new HashMap<>();
 
     void store(Object o) {
         lastResult = o;
