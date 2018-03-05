@@ -12,4 +12,18 @@ public abstract class Command {
     }
 
     public abstract void execute();
+
+    protected String getResult(Object obj) {
+        if (obj == null)
+            return "Result Non Defined";
+        if (obj.getClass().isArray()) {
+            StringBuilder sb = new StringBuilder();
+            for (Object o : (Object[]) obj) {
+                sb.append(getResult(o));
+                sb.append("\n");
+            }
+            return sb.toString();
+        }
+        return obj.toString();
+    }
 }
