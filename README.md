@@ -10,11 +10,11 @@ Develop a program that provides introspection-based functionalities for Java cla
 
 The commands to support are:
 
-  -  Class <name> : obtain instance of Class <name>.
-  -  Set <name> : save object from last result with name <name>.
-  -  Get <name> : select object previously saved with <name>.
-  -  Index <int> : select object within an array. The array should have been obtained as the result of the previous command.
-  -  Package [information_type]: obtain package information of the class of the object previously saved. information_type is an optional parameter that might have the values "Implementation", "Annotation", "Specification" or "Name". If information_type is not specified, then all the available information about the class of the object should be listed.
+  -  Class \<*name*\> : obtain instance of Class \<*name*\>.
+  -  Set \<*name*\> : save object from last result with name \<*name*\>.
+  -  Get \<*name*\> : select object previously saved with \<*name*\>.
+  -  Index \<*int*\> : select object within an array. The array should have been obtained as the result of the previous command.
+  -  Package [*information_type*]: obtain package information of the class of the object previously saved. *information_type* is an optional parameter that might have the values "Implementation", "Annotation", "Specification" or "Name". If *information_type* is not specified, then all the available information about the class of the object should be listed.
 
 Whenever the user enters an unknown command, instead of immediately giving an error message, the shell should first check if the attempted command names a method that can be invoked on the result of the previous command. In this case the following parameters given in the shell can be used as the actual parameters of the method to invoke. An attempt is made to discover the best method via reflection and to convert the given parameters to the correct types. (Suggestion: start simple, with support only for primitive types).
 
