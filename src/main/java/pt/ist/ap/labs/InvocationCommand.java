@@ -14,6 +14,7 @@ public class InvocationCommand extends Command {
 
     @Override
     public void execute() {
+        System.out.println("Trying generic command: " + this.commandName);
         Object o = this.handler.getLastResult();
         Method[] methods = Arrays.stream(o.getClass().getMethods()).filter((m) ->
                 m.getName().equals(this.commandName) &&
