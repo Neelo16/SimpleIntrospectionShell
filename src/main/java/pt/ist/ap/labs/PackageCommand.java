@@ -13,7 +13,6 @@ public class PackageCommand extends Command {
     public void execute() {
         Object lastResult = this.handler.getLastResult();
         Package pkg = lastResult.getClass().getPackage();
-        this.handler.store(pkg);
         System.out.print("Package information");
         System.out.print(" of [" + lastResult.getClass() + "]");
         System.out.print(" of previous object [" + lastResult + "]):");
@@ -22,6 +21,7 @@ public class PackageCommand extends Command {
             printInformation(pkg, "");
         else
             printInformation(pkg, this.arguments[0]);
+        System.out.println(lastResult);
     }
 
     private void printInformation(Package pkg, String match) {
