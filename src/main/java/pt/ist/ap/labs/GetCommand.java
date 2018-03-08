@@ -8,6 +8,7 @@ public class GetCommand extends Command {
     @Override
     public void execute() {
         Object o = this.handler.get(arguments[0]);
+        this.handler.store(o);
         System.out.println(o);
     }
 }
