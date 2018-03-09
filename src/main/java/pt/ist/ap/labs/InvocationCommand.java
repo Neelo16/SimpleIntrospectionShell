@@ -25,7 +25,6 @@ public class InvocationCommand extends Command {
                 .toArray(Method[]::new);
         Object[] args = new Object[this.arguments.length];
         for (Method m: methods) {
-            System.out.println("m = " + m);
             boolean canCall = true;
             Class<?>[] parameterTypes = m.getParameterTypes();
             for (int i = 0; i < this.arguments.length; i++) {
@@ -53,7 +52,6 @@ public class InvocationCommand extends Command {
     }
 
     private Object stringToObject(String string, Class type) {
-        System.out.println("string = [" + string + "], type = [" + type + "]");
         if (type.equals(String.class)) {
             return string;
         } else if (type.equals(Integer.class)) {
