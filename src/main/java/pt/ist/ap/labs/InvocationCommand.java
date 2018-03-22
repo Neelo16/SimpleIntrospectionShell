@@ -19,23 +19,22 @@ public class InvocationCommand extends Command {
     public void execute() {
         System.out.println("Trying generic command: " + this.commandName);
         Object lastResult = this.handler.getLastResult();
+        ArgumentParser parser = new ArgumentParser(this.arguments);
+        Object[] args = parser.parse();
         Method[] methods = Arrays.stream(lastResult.getClass().getMethods()).filter((m) ->
                 m.getName().equals(this.commandName) &&
-                m.getParameterCount() == this.arguments.length)
+                m.getParameterCount() == args.length)
                 .toArray(Method[]::new);
-        Object[] args = new Object[this.arguments.length];
         for (Method m: methods) {
             boolean canCall = true;
             Class<?>[] parameterTypes = m.getParameterTypes();
             for (int i = 0; i < this.arguments.length; i++) {
                 String argument = this.arguments[i];
                 Class<?> parameterType = parameterTypes[i];
-                Object arg = stringToObject(argument, parameterType);
-                if (arg == null) {
+                if (!args.getClass().equals(parameterType)) {
                     canCall = false;
                     break;
                 }
-                args[i] = arg;
             }
             if (canCall) {
                 try {
@@ -49,35 +48,5 @@ public class InvocationCommand extends Command {
             }
         }
         throw new RuntimeException("No such method");
-    }
-
-    private Object stringToObject(String string, Class type) {
-        if (type.equals(String.class)) {
-            return string;
-        } else if (type.equals(Integer.class)) {
-            try {
-                Integer i = Integer.parseInt(string);
-                return i;
-            } catch (NumberFormatException e) {
-                return null;
-            }
-        } else if (type.equals(Double.class)) {
-            try {
-                Double d = Double.parseDouble(string);
-                return d;
-            } catch (NumberFormatException e) {
-                return null;
-            }
-        }
-        Object result = this.handler.get(string);
-        if (result == null) {
-            Class<?>[] possibleTypes = { Integer.class, Double.class, String.class };
-            for (Class<?> possibleType : possibleTypes) {
-                result = stringToObject(string, possibleType);
-                if (result != null)
-                    break;
-            }
-        }
-        return result;
     }
 }
