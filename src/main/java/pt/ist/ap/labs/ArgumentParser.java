@@ -21,6 +21,8 @@ public class ArgumentParser {
                     instance = instantiateObject();
                 } else if (isInteger(argument)) {
                     instance = createInteger(argument);
+                } else if (isFloat(argument)) {
+                    instance = createFloat(argument);
                 } else {
                     throw new RuntimeException("Failed to parse arguments");
                 }
@@ -34,6 +36,27 @@ public class ArgumentParser {
 
     private boolean isNew(String argument) {
         return argument.equals("new");
+    }
+
+
+    private Object createFloat(String argument) {
+        return Float.parseFloat(argument);
+    }
+
+    private boolean isFloat(String argument) {
+        // Regex for an exponent component to the float (i.e. 314e-2 or 3e6)
+        String expRegex = "([eE][+-]?[0-9])+";
+        String sb =
+                // Matches integers with exponents
+                "[0-9]+" + expRegex +
+                "|" +
+                // Matches floats with an optional exponent
+                "[0-9]+\\.[0-9]*" + expRegex + "?" +
+                "|" +
+                // Matches floats that do not have an integer component (also with an optional exponent)
+                "\\.[0-9]+" + expRegex + "?";
+
+        return argument.matches(sb);
     }
 
     private Object createInteger(String argument) {
