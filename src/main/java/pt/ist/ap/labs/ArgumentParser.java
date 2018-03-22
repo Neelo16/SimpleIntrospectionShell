@@ -25,6 +25,8 @@ public class ArgumentParser {
                     instance = createFloat(argument);
                 } else if (isString(argument)) {
                     instance = createString(argument);
+                } else if (isChar(argument)) {
+                    instance = createChar(argument);
                 } else {
                     throw new RuntimeException("Failed to parse arguments");
                 }
@@ -38,6 +40,16 @@ public class ArgumentParser {
 
     private boolean isNew(String argument) {
         return argument.equals("new");
+    }
+
+    private boolean isChar(String argument) {
+        // Check if argument has single quotes around it or is either a control character (such as \n) or an escaped
+        // backslash
+        return argument.matches("^'(.|\\.)'$");
+    }
+
+    private char createChar(String argument) {
+        return argument.charAt(0);
     }
 
     private String createString(String argument) {
