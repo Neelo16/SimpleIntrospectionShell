@@ -19,6 +19,8 @@ public class ArgumentParser {
                 Object instance;
                 if (isNew(argument)) {
                     instance = instantiateObject();
+                } else if (isInteger(argument)) {
+                    instance = createInteger(argument);
                 } else {
                     throw new RuntimeException("Failed to parse arguments");
                 }
@@ -32,6 +34,15 @@ public class ArgumentParser {
 
     private boolean isNew(String argument) {
         return argument.equals("new");
+    }
+
+    private Object createInteger(String argument) {
+        return Integer.parseInt(argument);
+    }
+
+    private boolean isInteger(String argument) {
+        // Check if argument is either 0 or a non-zero digit followed by zero or more digits
+        return argument.matches("0|[1-9][0-9]*");
     }
 
     // TODO
