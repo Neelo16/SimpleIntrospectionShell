@@ -23,6 +23,8 @@ public class ArgumentParser {
                     instance = createInteger(argument);
                 } else if (isFloat(argument)) {
                     instance = createFloat(argument);
+                } else if (isString(argument)) {
+                    instance = createString(argument);
                 } else {
                     throw new RuntimeException("Failed to parse arguments");
                 }
@@ -38,6 +40,15 @@ public class ArgumentParser {
         return argument.equals("new");
     }
 
+    private String createString(String argument) {
+        return argument;
+    }
+
+    private boolean isString(String argument) {
+        // FIXME this does not consider unescaped quotes in the middle of the string or escaped quotes at the end
+        // Check if argument has quotes around it
+        return argument.matches("^\".*\"$");
+    }
 
     private Object createFloat(String argument) {
         return Float.parseFloat(argument);
